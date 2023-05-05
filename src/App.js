@@ -1,33 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
-function App() {
+ export default function App() {
+  const[photo, setPhoto]=useState("")
+ useEffect(() => {
+    fetchPhoto()
+  }, []);
+   function fetchPhoto(){
+    axios
+    .get('https://dog.ceo/api/breeds/image/random')
+    .then((res) => setPhoto(res.data.message))
+    .catch((err) => console.log(err));
+   }
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>
-          Benifit of usiing react...
-        </h2>
-        <ol>
-          <li>Component-based architecture</li>
-          <li> Virtual DOM for efficient updates</li>
-          <li> Rich ecosystem and community</li>
-          <li> Cross_platform development</li>
-          <li>Strong community support:</li>
-        </ol>
-          
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <button>Get Started...</button>
-        </a>
-      </header>
+    <div>
+      <button onClick={fetchPhoto}>Pic</button>
+       <img src={photo}/>
     </div>
   );
 }
-
-export default App;
